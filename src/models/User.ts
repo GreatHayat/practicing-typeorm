@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Address } from "./Address";
 
 @Entity()
 export class User {
@@ -19,6 +22,10 @@ export class User {
 
   @Column()
   gender: string;
+
+  @OneToOne(() => Address)
+  @JoinColumn()
+  address: Address;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -3,10 +3,15 @@ import { userReporitory } from "../../models";
 
 export const createUser = async (req: Request, res: Response) => {
   const {
-    body: { username, email, gender },
+    body: { username, email, gender, address },
   } = req;
 
-  const user = await userReporitory.create({ username, email, gender });
+  const user = await userReporitory.create({
+    username,
+    email,
+    gender,
+    address,
+  });
   const response = await userReporitory.save(user);
 
   res.status(200).json({ success: true, user: response });
