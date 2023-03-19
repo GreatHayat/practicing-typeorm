@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Address } from "./Address";
+import { Post } from "./Post";
 
 @Entity()
 export class User {
@@ -28,6 +30,9 @@ export class User {
   })
   @JoinColumn()
   address: Address;
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
 
   @CreateDateColumn()
   createdAt: Date;
