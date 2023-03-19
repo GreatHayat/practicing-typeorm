@@ -53,6 +53,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   const users = await userReporitory.find({
     relations: {
       address: true,
+      posts: true,
     },
   });
   res.status(200).json({ success: true, users });
