@@ -23,7 +23,9 @@ export class User {
   @Column()
   gender: string;
 
-  @OneToOne(() => Address)
+  @OneToOne(() => Address, (address) => address.address, {
+    cascade: true,
+  })
   @JoinColumn()
   address: Address;
 

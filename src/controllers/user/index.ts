@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userReporitory } from "../../models";
+import { addressRepository, userReporitory } from "../../models";
 
 export const createUser = async (req: Request, res: Response) => {
   const {
@@ -10,8 +10,8 @@ export const createUser = async (req: Request, res: Response) => {
     username,
     email,
     gender,
-    address,
   });
+  user.address = await addressRepository.create({ address });
   const response = await userReporitory.save(user);
 
   res.status(200).json({ success: true, user: response });
@@ -50,7 +50,11 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 export const getAllUsers = async (req: Request, res: Response) => {
-  const users = await userReporitory.find();
+  const users = await userReporitory.find({
+    relations: {
+      address: true,
+    },
+  });
   res.status(200).json({ success: true, users });
 };
 
